@@ -7,4 +7,7 @@ urlpatterns = [
 
     # authentication
     path("auth/", include(("authentication.urls", "auth"), namespace="auth")),
+
+    # community
+    path("community/", include(("community.urls", "community"), namespace="community")),
 ]
