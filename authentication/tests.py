@@ -11,8 +11,9 @@ class TestAuthUser(TestCase):
         email = "yysss61888@gmail.com"
         password = "1234"
         username = "yysss61888"
-        response = self.client.post(url,
-                                    {"email": email, "password": password, "username": username})
+        response = self.client.post(
+            url, {"email": email, "password": password, "username": username}
+        )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn("access_token", response.data)
         self.assertIn("refresh_token", response.data)
@@ -31,7 +32,9 @@ class TestAuthUser(TestCase):
         url = reverse("auth:login")
         email = "yysss61888@gmail.com"
         password = "1234"
-        AuthUser.objects.create_user(email=email, password=password, username="yysss61888")
+        AuthUser.objects.create_user(
+            email=email, password=password, username="yysss61888"
+        )
 
         response = self.client.post(url, {"email": email, "password": password})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -42,7 +45,9 @@ class TestAuthUser(TestCase):
         url = reverse("auth:login")
         email = "yysss61888@gmail.com"
         password = "1234"
-        AuthUser.objects.create_user(email=email, password=password, username="yysss61888")
+        AuthUser.objects.create_user(
+            email=email, password=password, username="yysss61888"
+        )
 
         response = self.client.post(url, {"email": email, "password": "12345"})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

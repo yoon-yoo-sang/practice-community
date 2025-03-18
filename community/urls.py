@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
 
-from community.views import PostViewSet, BoardViewSet, CommentViewSet
+from community.views import BoardViewSet, CommentViewSet, PostViewSet
 
 app_name = "community"
 

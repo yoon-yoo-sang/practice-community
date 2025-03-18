@@ -1,12 +1,13 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, filters
-from rest_framework.mixins import RetrieveModelMixin, ListModelMixin
+from rest_framework import filters, viewsets
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated
 
 from common.permissions import IsOwnerOrReadOnly
-from community.models import Board, Post, Comment
-from community.serializers import BoardSerializer, PostSerializer, CommentSerializer, PostRetrieveSerializer
+from community.models import Board, Comment, Post
+from community.serializers import (BoardSerializer, CommentSerializer,
+                                   PostRetrieveSerializer, PostSerializer)
 
 
 class BoardViewSet(viewsets.GenericViewSet, RetrieveModelMixin, ListModelMixin):
@@ -20,7 +21,9 @@ class BoardViewSet(viewsets.GenericViewSet, RetrieveModelMixin, ListModelMixin):
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.select_related("user", "board").prefetch_related("comments").all()
+    queryset = (
+        Post.objects.select_related("user", "board").prefetch_related("comments").all()
+    )
     filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
     filterset_fields = ["board", "user"]
     permission_classes = [IsOwnerOrReadOnly]

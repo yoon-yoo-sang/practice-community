@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from authentication.serializers import AuthUserSerializer
-from community.models import Board, Post, Comment
+from community.models import Board, Comment, Post
 
 
 class BoardSerializer(serializers.ModelSerializer):
@@ -17,7 +17,7 @@ class BoardSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     user = AuthUserSerializer(read_only=True)
     board_id = serializers.PrimaryKeyRelatedField(
-        queryset=Board.objects.all(), source='board', write_only=True
+        queryset=Board.objects.all(), source="board", write_only=True
     )
     title = serializers.CharField(required=True)
     content = serializers.CharField(required=True)
@@ -56,7 +56,7 @@ class PostRetrieveSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     user = AuthUserSerializer(read_only=True)
     post_id = serializers.PrimaryKeyRelatedField(
-        queryset=Post.objects.all(), source='post', write_only=True
+        queryset=Post.objects.all(), source="post", write_only=True
     )
 
     class Meta:

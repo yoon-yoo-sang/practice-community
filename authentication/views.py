@@ -15,7 +15,9 @@ class SignUpView(APIView):
         email = request.data.get("email")
 
         if AuthUser.objects.filter(email=email).exists():
-            return Response({"detail": "User already exists."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"detail": "User already exists."}, status=status.HTTP_400_BAD_REQUEST
+            )
 
         serializer = AuthUserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -35,7 +37,9 @@ class LoginView(APIView):
         user = AuthUser.objects.filter(email=email).first()
 
         if not user or not user.check_password(password):
-            return Response({"detail": "Invalid credentials."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"detail": "Invalid credentials."}, status=status.HTTP_400_BAD_REQUEST
+            )
 
         token = TokenService.create_token(user)
         return Response(token, status=status.HTTP_200_OK)

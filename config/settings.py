@@ -78,7 +78,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASE_URL = os.getenv("DATABASE_URL")
 DATABASES = {"default": dj_database_url.config(default=DATABASE_URL)}
 
-AUTH_USER_MODEL = 'authentication.AuthUser'
+AUTH_USER_MODEL = "authentication.AuthUser"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
